@@ -8,18 +8,15 @@ interface ActionItem {
   label: string
   modalTitle: string
   modalMessage: string
-  href: string        // você ainda pode usar para algo, mas não fará push
-  image: string       // background do card
-  modalImage?: string // imagem que será exibida no segundo passo
+  href: string
+  image: string
+  modalImage?: string
 }
 
-export default function Home() {
+export default function AcademicWorks() {
   const pathname = usePathname()
   const [isVisible, setIsVisible] = useState(true)
-
-  // passo 1: confirmação de texto
   const [showConfirmModal, setShowConfirmModal] = useState(false)
-  // passo 2: modal de imagem
   const [showImageModal, setShowImageModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<ActionItem | null>(null)
 
@@ -189,63 +186,9 @@ export default function Home() {
       href: "",
       image: "/images/Vazio.jpg",
       modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },
-    
+    },    
   ]
+
 
   function handleOpen(item: ActionItem) {
     setSelectedItem(item)
@@ -268,64 +211,123 @@ export default function Home() {
   }
 
   return (
-    <>
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center text-center">
+    <div className="min-h-screen bg-stone-900 bg-[url('/images/medieval-bg.jpg')] bg-cover bg-fixed">
+      {/* Banner superior */}
+      <div className="bg-black/70 border-b-4 border-amber-800 py-4 shadow-lg">
+        <h1 className="text-3xl md:text-4xl font-pixel text-center text-amber-400 tracking-wider">
+          📜 Trabalhos Acadêmicos
+        </h1>
+        <p className="text-center text-amber-200 mt-2 font-pixel text-sm">
+          Meus projetos e exercícios acadêmicos
+        </p>
+      </div>
+
+      {/* Grid de trabalhos */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {actions.map((action, idx) => (
             <div
               key={action.label + idx}
-              className="relative w-[250px] h-[250px] rounded-lg overflow-hidden border border-red-900 shadow-sm bg-cover bg-center"
-              style={{ backgroundImage: `url(${action.image})` }}
+              className="relative group transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+              onClick={() => handleOpen(action)}
             >
-              <Button
-                onClick={() => handleOpen(action)}
-                className="absolute inset-0 bg-red-200/40 text-red-800 text-[24px] font-pixel hover:bg-red-500/60 hover:text-black"
+              {/* Moldura decorativa */}
+              <div className="absolute inset-0 border-4 border-amber-700 rounded-lg pointer-events-none"></div>
+              <div className="absolute inset-1 border-2 border-amber-500/50 rounded pointer-events-none"></div>
+              
+              {/* Carta de trabalho */}
+              <div 
+                className="relative w-full h-64 rounded bg-stone-800 overflow-hidden bg-cover bg-center shadow-lg"
+                style={{ backgroundImage: `url(${action.image})` }}
               >
-                {action.label}
-              </Button>
+                {/* Overlay e título */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 flex items-end p-4">
+                  <h3 className="text-xl font-pixel text-amber-200 text-center w-full">
+                    {action.label}
+                  </h3>
+                </div>
+                
+                {/* Selo de categoria */}
+                <div className="absolute top-2 right-2 bg-amber-700 text-amber-100 font-pixel text-xs px-2 py-1 rounded-full">
+                  {action.modalTitle.includes("MySQL") ? "Banco de Dados" : 
+                   action.modalTitle.includes("PlantUML") ? "Análise" : 
+                   action.modalTitle.includes("HTML") ? "Web Design" : "Vazio"}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* 1) Modal de confirmação de texto */}
+      {/* Modal de descrição (estilo pergaminho) */}
       {showConfirmModal && selectedItem && (
-  <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-    <div className="bg-red-100 rounded-lg p-6 max-w-lg w-full text-left">
-      <h2 className="text-xl font-pixel mb-4 text-center">
-        {selectedItem.modalTitle}
-      </h2>
-      <pre className="mb-6 whitespace-pre-wrap bg-white p-4 rounded text-sm overflow-auto">
-        {selectedItem.modalMessage}
-      </pre>
-      <div className="flex justify-end space-x-4">
-        <Button variant="ghost" onClick={handleCancel}>
-          Cancelar
-        </Button>
-        <Button onClick={handleConfirm}>
-          Resultado!
-        </Button>
-      </div>
-    </div>
-  </div>
-)}
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+          <div className="bg-stone-800 border-4 border-amber-700 rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-auto shadow-xl">
+            <div className="border-b border-amber-600 pb-3 mb-4">
+              <h2 className="text-2xl font-pixel text-amber-300 text-center">
+                {selectedItem.modalTitle}
+              </h2>
+            </div>
+            
+            <div className="bg-stone-700/80 border border-amber-900 p-4 rounded mb-6">
+              <pre className="font-mono text-amber-100 text-sm whitespace-pre-wrap overflow-auto">
+                {selectedItem.modalMessage}
+              </pre>
+            </div>
+            
+            <div className="flex justify-center space-x-4">
+              <Button 
+                onClick={handleCancel}
+                className="font-pixel bg-stone-700 hover:bg-stone-600 text-amber-300 border border-amber-700"
+              >
+                Voltar
+              </Button>
+              <Button 
+                onClick={handleConfirm}
+                className="font-pixel bg-amber-700 hover:bg-amber-600 text-stone-100"
+              >
+                Ver Resultado
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* 2) Modal de imagem */}
+      {/* Modal de imagem (estilo vitral medieval) */}
       {showImageModal && selectedItem && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg overflow-hidden shadow-lg max-w-md w-full">
-            {selectedItem.modalImage
-              ? <img src={selectedItem.modalImage} alt={selectedItem.label} className="w-full object-cover" />
-              : <div className="p-6 text-center">Sem preview disponível</div>
-            }
-            <div className="flex justify-end bg-gray-100 p-4">
-              <Button onClick={handleCloseImage}>
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+          <div className="bg-stone-800 border-4 border-amber-700 rounded-lg overflow-hidden shadow-2xl max-w-5xl w-full">
+            <div className="bg-stone-900 border-b border-amber-800 p-3">
+              <h3 className="text-xl font-pixel text-amber-300 text-center">
+                {selectedItem.label} - Resultado Final
+              </h3>
+            </div>
+            
+            <div className="p-4 bg-black flex justify-center max-h-[70vh] overflow-auto">
+              {selectedItem.modalImage ? (
+                <img 
+                  src={selectedItem.modalImage} 
+                  alt={selectedItem.label} 
+                  className="max-w-full object-contain"
+                />
+              ) : (
+                <div className="p-8 text-center text-amber-200 font-pixel">
+                  Sem preview disponível
+                </div>
+              )}
+            </div>
+            
+            <div className="bg-stone-900 border-t border-amber-800 p-3 flex justify-center">
+              <Button 
+                onClick={handleCloseImage}
+                className="font-pixel bg-amber-700 hover:bg-amber-600 text-stone-100"
+              >
                 Fechar
               </Button>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
