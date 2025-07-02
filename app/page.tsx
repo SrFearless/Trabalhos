@@ -83,7 +83,10 @@ export default function AcademicWorks() {
       label: "Análise de Sistemas",
       modalTitle: "Linguagem de Programação - PlantUML",
       modalMessage:
-        `Criação de diagrama de caso de uso 
+        `                                          OBSERVAÇÃO !!!
+Perdi o Arquivo com os códigos, assim como as imagens. Então só coloquei os Requisitos e Prints do Arquivo enviado (Por isso a Péssima Qualidade).
+
+        Criação de diagrama de caso de uso 
         Requisitos Funcionais: 
   
         ⦁ Cancelar Controle de Dispositivos por Voz          
@@ -118,7 +121,10 @@ export default function AcademicWorks() {
       label: "Web Designer",
       modalTitle: "Linguagem de Programação - HTML e CSS",
       modalMessage:
-        `<!DOCTYPE html> 
+      `                                          OBSERVAÇÃO !!!
+Coloquei somente o Inicio pelo fato que eu usava esse Site como meu Portifólio.
+      
+        <!DOCTYPE html> 
       <html lang="pt-br"> 
       <head> 
       <meta charset="UTF-8"> 
@@ -161,13 +167,262 @@ export default function AcademicWorks() {
       modalImage: "/images/trabalho3.jpg",
     },
     {
-      label: "Vazio",
-      modalTitle: "Esperando...",
+      label: "Estrutura de Dados (Lista Encadeada)",
+      modalTitle: "Linguagem de Programação - Python",
       modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
+        `class Nodo: 
+
+    def __init__(self, numero, cor): 
+        self.numero = numero 
+        self.cor = cor 
+        self.proximo = None 
+ 
+class FilaTriagem: 
+    def __init__(self): 
+        self.head = None 
+        self.cont_verde = 1 
+        self.cont_amarelo = 201 
+ 
+    def adicionar_sem_prioridade(self, nodo): 
+        if not self.head: 
+            self.head = nodo 
+        else: 
+            atual = self.head 
+            while atual.proximo: 
+                atual = atual.proximo 
+            atual.proximo = nodo 
+ 
+    def adicionar_com_prioridade(self, nodo): 
+        if not self.head or self.head.cor == 'V': 
+            nodo.proximo = self.head 
+            self.head = nodo 
+        else: 
+            atual = self.head 
+            while atual.proximo and atual.proximo.cor == 'A': 
+                atual = atual.proximo 
+            nodo.proximo = atual.proximo 
+            atual.proximo = nodo 
+ 
+    def inserir_paciente(self): 
+        while True: 
+            escolha = input("Tipo de cartão (A=Amarelo, V=Verde): ").strip().upper() 
+            if escolha in ('A','V'): 
+                break 
+            print("Opção inválida. Digite A ou V.") 
+        if escolha == 'V': 
+            numero = self.cont_verde 
+            self.cont_verde += 1 
+        else: 
+            numero = self.cont_amarelo 
+            self.cont_amarelo += 1 
+ 
+        novo = Nodo(numero, escolha) 
+        if not self.head: 
+            self.head = novo 
+        elif escolha == 'V': 
+            self.adicionar_sem_prioridade(novo) 
+        else: 
+            self.adicionar_com_prioridade(novo) 
+ 
+        print(f"Paciente {escolha} de Número {numero} Foi Adicionado à Fila.") 
+ 
+    def mostrar_fila(self): 
+        if not self.head: 
+            print("A fila está vazia.") 
+            return 
+        print("Fila de Espera:") 
+        atual = self.head 
+        while atual: 
+            print(f"  • Prioridade {atual.cor} Número {atual.numero}") 
+            atual = atual.proximo 
+ 
+    def chamar_proximo(self): 
+        if not self.head: 
+            print("Não há pacientes para chamar.") 
+            return 
+        chamado = self.head 
+        self.head = self.head.proximo 
+        print(f"Chamando Paciente de Prioridade {chamado.cor} Número {chamado.numero} para atendimento.") 
+ 
+def menu(): 
+    fila = FilaTriagem() 
+    while True: 
+        print("\n=== Menu ===") 
+        print("1 = Adicionar Paciente na Fila") 
+        print("2 = Ver Lista de Espera") 
+        print("3 = Chamar Paciente") 
+        print("4 = Sair") 
+        opc = input("Escolha: ").strip() 
+        if opc == '1': 
+            fila.inserir_paciente() 
+        elif opc == '2': 
+            fila.mostrar_fila() 
+        elif opc == '3': 
+            fila.chamar_proximo() 
+        elif opc == '4': 
+            print("Encerrando. Até logo!") 
+            break 
+        else: 
+            print("Escolha inválida. Tente de novo.") 
+ 
+if __name__ == "__main__": 
+    menu()`,
       href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho4.png",
+    },
+    {
+      label: "Estrutura de Dados (Tabela Hash)",
+      modalTitle: "Linguagem de Programação - Python",
+      modalMessage:
+        `class Nodo: 
+    def __init__(self, sigla, nome): 
+        self.sigla = sigla 
+        self.nome = nome 
+        self.proximo = None 
+ 
+class HashEmplacamento: 
+    def __init__(self): 
+        self.tabela = [None] * 10 
+ 
+    def funcao_hash(self, sigla): 
+        if sigla == 'DF': 
+            return 7 
+        return (ord(sigla[0]) + ord(sigla[1])) % 10 
+ 
+    def inserir(self, sigla, nome): 
+        pos = self.funcao_hash(sigla) 
+        novo = Nodo(sigla, nome) 
+        novo.proximo = self.tabela[pos] 
+        self.tabela[pos] = novo 
+ 
+    def imprimir(self): 
+        for i, head in enumerate(self.tabela): 
+            print(f"{i} →", end="") 
+            atual = head 
+            while atual: 
+                print(f" {atual.sigla} →", end="") 
+                atual = atual.proximo 
+            print(" None") 
+ 
+if __name__ == "__main__": 
+    tabela = HashEmplacamento() 
+ 
+    estados = [ 
+        ('MA','Maranhão'), ('MT','Mato Grosso'), ('MS','Mato Grosso do Sul'), 
+        ('RO','Rondônia'), ('RR', 'Roraima'), ('SC', 'Santa Catarina'), 
+        ('SP','São Paulo'), ('SE', 'Sergipe'), ('TO', 'Tocantins'), 
+        ('MG','Minas Gerais'), ('PA','Pará'), ('PB','Paraíba'), ('PR','Paraná'), 
+        ('AC','Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 'Amazonas'), 
+        ('BA','Bahia'), ('CE', 'Ceará'), ('ES', 'Espírito Santo'), ('GO', 'Goiás'), 
+        ('PE','Pernambuco'), ('PI','Piauí'), ('RJ','Rio de Janeiro'), 
+        ('RN','Rio Grande do Norte'), ('RS','Rio Grande do Sul'), 
+        ('DF','Distrito Federal') 
+    ] 
+ 
+    for sigla, nome in estados: 
+        tabela.inserir(sigla, nome) 
+ 
+    tabela.inserir('TM', 'Tiago de Freitas Machado') 
+ 
+    print("\nEmplacamentos Representados pelos Estados:") 
+    tabela.imprimir()`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho5.png",
+    },
+    {
+      label: "Banco de Dados NoSQL (IMPORTAÇÃO)",
+      modalTitle: "Linguagem de Programação - Neo4j",
+      modalMessage:
+        `MERGE(:RU{ru:"RU-0000000"});
+CALL apoc.load.directory("*.json") YIELD value AS filename
+CALL apoc.load.json(filename) YIELD value
+UNWIND coalesce(value.data,[]) AS tweet
+MERGE(u:User{user_id:tweet.author_id,ru:"RU-0000000"})
+MERGE(t:Tweet{id_tuite:tweet.id,ru:"RU-4729438"}) ON CREATE SET
+  t.text=tweet.text,
+  t.created_at=datetime(tweet.created_at),
+  t.tipos_ref=[r IN coalesce(tweet.referenced_tweets,[])|r.type],
+  t.ids_ref=[r IN coalesce(tweet.referenced_tweets,[])|r.id]
+MERGE(u)-[:POSTOU]->(t)
+FOREACH(h IN coalesce(tweet.entities.hashtags,[])|
+  MERGE(tag:Hashtag{tag:apoc.text.replace(apoc.text.clean(h.tag),"[^a-zA-Z0-9]","")})
+  MERGE(t)-[:POSSUI]->(tag)
+);
+
+Depois:
+
+MATCH(t:Tweet)
+WHERE "retweeted" IN t.tipos_ref
+REMOVE t:Tweet
+SET t:Retweeted;
+
+Depois:
+
+MATCH(t:Tweet)
+WHERE "replied_to" IN t.tipos_ref
+REMOVE t:Tweet
+SET t:Replied_to;
+
+Depois:
+
+MATCH(t:Tweet)
+WHERE "quoted" IN t.tipos_ref
+REMOVE t:Tweet
+SET t:Quoted;
+
+`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho6.png",
+    },
+    {
+      label: "Banco de Dados NoSQL (DESCOBERTA)",
+      modalTitle: "Linguagem de Programação - Neo4j",
+      modalMessage:
+        `MATCH (t:Tweet {ru:"RU-0000000"})-[:POSSUI]->(h:Hashtag)
+WITH h.tag AS hashtag, COUNT(DISTINCT t) AS total_tweets
+MATCH (total:Tweet {ru:"RU-0000000"})
+WITH hashtag, total_tweets, COUNT(DISTINCT total) AS total_originais
+WHERE total_tweets = total_originais
+RETURN hashtag, total_tweets
+ORDER BY total_tweets DESC
+LIMIT 1;
+
+Depois:
+
+MATCH (t:Tweet {ru:"RU-0000000"})-[:POSSUI]->(h:Hashtag {tag: "issoaglobonaomostra"})
+WITH h, t LIMIT 20
+MATCH (t)-[:POSTOU]-(u:User)
+RETURN h, t, u;`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho7.png",
+    },
+    {
+      label: "Banco de Dados NoSQL (ANÁLISE)",
+      modalTitle: "Linguagem de Programação - Neo4j",
+      modalMessage:
+        `MATCH (u:User {ru:"RU-0000000"})-[:POSTOU]->(t:Tweet)
+WITH u.user_id AS usuário, COUNT(t) AS totalTweets
+RETURN usuário, totalTweets
+ORDER BY totalTweets DESC
+LIMIT 1;
+
+Depois:
+
+MATCH (u:User {ru:"RU-0000000"})-[:POSTOU]->(t:Tweet)
+WITH u, COUNT(t) AS totalTweets
+ORDER BY totalTweets DESC
+LIMIT 1
+MATCH (u)-[:POSTOU]->(t2:Tweet)-[:POSSUI]->(h:Hashtag)
+WITH u, t2, h
+LIMIT 20
+RETURN u, t2, h;`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho8.png",
     },
     {
       label: "Vazio",
@@ -177,16 +432,7 @@ export default function AcademicWorks() {
       href: "",
       image: "/images/Vazio.jpg",
       modalImage: "/images/Vazio.jpg",
-    },
-    {
-      label: "Vazio",
-      modalTitle: "Esperando...",
-      modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
-      href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
-    },    
+    }, 
   ]
 
 
@@ -211,7 +457,7 @@ export default function AcademicWorks() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-900 bg-[url('/images/medieval-bg.jpg')] bg-cover bg-fixed">
+    <div className="min-h-screen bg-stone-900 bg-cover bg-fixed">
       {/* Banner superior */}
       <div className="bg-black/70 border-b-4 border-amber-800 py-4 shadow-lg">
         <h1 className="text-3xl md:text-4xl font-pixel text-center text-amber-400 tracking-wider">
@@ -249,9 +495,11 @@ export default function AcademicWorks() {
                 
                 {/* Selo de categoria */}
                 <div className="absolute top-2 right-2 bg-amber-700 text-amber-100 font-pixel text-xs px-2 py-1 rounded-full">
-                  {action.modalTitle.includes("MySQL") ? "Banco de Dados" : 
-                   action.modalTitle.includes("PlantUML") ? "Análise" : 
-                   action.modalTitle.includes("HTML") ? "Web Design" : "Vazio"}
+                  {action.modalTitle.includes("MySQL") ? "Análise e Dev de Sistemas" : 
+                   action.modalTitle.includes("PlantUML") ? "Análise e Dev de Sistemas" : 
+                   action.modalTitle.includes("HTML") ? "Análise e Dev de Sistemas" :
+                   action.modalTitle.includes("Python") ? "Análise e Dev de Sistemas" :
+                   action.modalTitle.includes("Neo4j") ? "Análise e Dev de Sistemas" : "Vazio"}                   
                 </div>
               </div>
             </div>
