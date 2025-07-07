@@ -340,7 +340,7 @@ CALL apoc.load.directory("*.json") YIELD value AS filename
 CALL apoc.load.json(filename) YIELD value
 UNWIND coalesce(value.data,[]) AS tweet
 MERGE(u:User{user_id:tweet.author_id,ru:"RU-0000000"})
-MERGE(t:Tweet{id_tuite:tweet.id,ru:"RU-4729438"}) ON CREATE SET
+MERGE(t:Tweet{id_tuite:tweet.id,ru:"RU-0000000"}) ON CREATE SET
   t.text=tweet.text,
   t.created_at=datetime(tweet.created_at),
   t.tipos_ref=[r IN coalesce(tweet.referenced_tweets,[])|r.type],
