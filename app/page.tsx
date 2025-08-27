@@ -467,7 +467,7 @@ class GameState:
 ...`,
       href: "",
       image: "/images/Uninter.jpg",
-      modalImage: "/images/trabalho8.png",
+      modalImage: "/images/trabalho9.png",
     }, 
   ]
 
