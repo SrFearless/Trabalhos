@@ -425,13 +425,49 @@ RETURN u, t2, h;`,
       modalImage: "/images/trabalho8.png",
     },
     {
-      label: "Vazio",
-      modalTitle: "Esperando...",
+      label: "Linguagem de Programação Aplicada",
+      modalTitle: "Linguagem de Programação - Python",
       modalMessage:
-        `Já Já mais trabalhos serão apresentados`,
+        `import pygame
+import sys
+import random
+import math
+from src.player import Player
+from src.enemy import Enemy
+
+# Inicialização do Pygame
+pygame.init()
+
+# Configurações da janela
+SCREEN_WIDTH = 1600
+SCREEN_HEIGHT = 1200
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("NemesisoftheWord")
+clock = pygame.time.Clock()
+FPS = 60
+
+# Cores para o menu
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GRAY = (100, 100, 100)
+DARK_GRAY = (50, 50, 50)
+GOLD = (255, 215, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 100, 255)
+
+
+# Estados do jogo
+class GameState:
+    MENU = "menu"
+    PLAYING = "playing"
+    GAME_OVER = "game_over"
+    OPTIONS = "options"
+    CREDITS = "credits"
+...`,
       href: "",
-      image: "/images/Vazio.jpg",
-      modalImage: "/images/Vazio.jpg",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho8.png",
     }, 
   ]
 
