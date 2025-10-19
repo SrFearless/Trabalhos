@@ -463,11 +463,146 @@ class GameState:
     PLAYING = "playing"
     GAME_OVER = "game_over"
     OPTIONS = "options"
-    CREDITS = "credits"
-...`,
+    CREDITS = "credits"...
+`,
       href: "",
       image: "/images/Uninter.jpg",
       modalImage: "/images/trabalho9.png",
+    },
+    {
+      label: "Big Data (Questão 1)",
+      modalTitle: "Linguagem de Programação - Python",
+      modalMessage:
+        `
+  QUESTÃO 1
+  
+  Etapa 1: Criar funções de MAP:
+  def map1(x):
+    return (x['sentiment'], int(x['id'])) 
+
+  Etapa 2: Cria funções de REDUCE:
+  def reduceByKey1(x,y):
+    return x + y
+
+  Etapa 3: Aplicação do map/reduce e visualização do resultado
+  resultado = imdb_df.rdd.map(map1).reduceByKey(reduceByKey1).collect()
+  print("Resultado:", resultado)
+  print("RU: 0000000")`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho10.png",
+    }, 
+    {
+      label: "Big Data (Questão 2)",
+      modalTitle: "Linguagem de Programação - Python",
+      modalMessage:
+        `
+  QUESTÃO 2
+
+  Etapa 1: Criar funções de MAP:
+  def map2(x): 
+    palavras_en = len(x['text_en'].split()) if x['text_en'] else 0 
+    palavras_pt = len(x['text_pt'].split()) if x['text_pt'] else 0 
+
+    return (x['sentiment'], palavras_pt - palavras_en) 
+
+  Etapa 2: Cria funções de REDUCE:
+  def reduceByKey2(x,y):
+    return x + y
+
+  Etapa 3: Aplicação do map/reduce e visualização do resultado
+  resultado = imdb_df.rdd.map(map2).reduceByKey(reduceByKey2).collect()
+  for sentiment, diferenca in resultado:
+      if sentiment == 'neg':
+          print(f"Diferença final (alternativa): {diferenca}")
+          break`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho11.png",
+    }, 
+    {
+      label: "Desenvolvimento Web - Back End",
+      modalTitle: "Linguagem de Programação - Java",
+      modalMessage:
+        `package com.uninter.gestao_tarefas.controller;
+
+import com.uninter.gestao_tarefas.model.Tarefa;
+import com.uninter.gestao_tarefas.repository.TarefaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/tarefas")
+public class TarefaController {
+
+    @Autowired
+    private TarefaRepository tarefaRepository;
+
+    // Criar tarefa
+    @PostMapping
+    public ResponseEntity<Tarefa> criarTarefa(@RequestBody Tarefa tarefa) {
+        try {
+            Tarefa novaTarefa = tarefaRepository.save(tarefa);
+            return new ResponseEntity<>(novaTarefa, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Listar todas as tarefas
+    @GetMapping
+    public ResponseEntity<List<Tarefa>> listarTarefas() {
+        try {
+            List<Tarefa> tarefas = tarefaRepository.findAll();
+            return new ResponseEntity<>(tarefas, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Buscar tarefa por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Tarefa> buscarTarefa(@PathVariable Long id) {
+        Optional<Tarefa> tarefa = tarefaRepository.findById(id);
+        return tarefa.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // Atualizar tarefa
+    @PutMapping("/{id}")
+    public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefaAtualizada) {
+        Optional<Tarefa> tarefaExistente = tarefaRepository.findById(id);
+        
+        if (tarefaExistente.isPresent()) {
+            Tarefa tarefa = tarefaExistente.get();
+            tarefa.setNome(tarefaAtualizada.getNome());
+            tarefa.setDataEntrega(tarefaAtualizada.getDataEntrega());
+            tarefa.setResponsavel(tarefaAtualizada.getResponsavel());
+            return new ResponseEntity<>(tarefaRepository.save(tarefa), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Deletar tarefa
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deletarTarefa(@PathVariable Long id) {
+        try {
+            tarefaRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}`,
+      href: "",
+      image: "/images/Uninter.jpg",
+      modalImage: "/images/trabalho12.png",
     }, 
   ]
 
@@ -533,6 +668,7 @@ class GameState:
                 <div className="absolute top-2 right-2 bg-amber-700 text-amber-100 font-pixel text-xs px-2 py-1 rounded-full">
                   {action.modalTitle.includes("MySQL") ? "Análise e Dev de Sistemas" : 
                    action.modalTitle.includes("PlantUML") ? "Análise e Dev de Sistemas" : 
+                   action.modalTitle.includes("Java") ? "Análise e Dev de Sistemas" :
                    action.modalTitle.includes("HTML") ? "Análise e Dev de Sistemas" :
                    action.modalTitle.includes("Python") ? "Análise e Dev de Sistemas" :
                    action.modalTitle.includes("Neo4j") ? "Análise e Dev de Sistemas" : "Vazio"}                   
